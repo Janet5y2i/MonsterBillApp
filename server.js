@@ -34,3 +34,9 @@ app.post('/add-ind-record', async(req, res) => {
         res.status(500).json({ message: 'Error saving record', error: err });
     }
 });
+
+
+app.use((req, res, next) => {
+    console.log(`有人來訪！方法：${req.method}, 路徑：${req.url}`);
+    next();
+});

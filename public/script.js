@@ -14,7 +14,7 @@ async function saveIndRecord() {
     }
 
     if (date == "" || date == null){
-        date = formatted;
+        date = new Date().toISOString().split('T')[0];
     }
 
     //SAVE DATA TO DB
@@ -25,6 +25,7 @@ async function saveIndRecord() {
     };
 
     try {
+        // 3. 發送請求 (請確認 server.js 也是這個路徑)
         const response = await fetch('/add-ind-record', {
             method: 'POST',
             headers: {
@@ -33,25 +34,19 @@ async function saveIndRecord() {
             body: JSON.stringify(recordData)
         });
 
-        // Check if the response is successful
-        const result = await response.json();
-
-        if (response.ok) {
-            alert(`Record saved successfully
-                Purchase: ${name} 
-                Date: ${date}
-                Amount: ${amount}
-                `);
-        } else {
-            alert('Error saving record: ' + result.message);
+        // 4. 強力偵錯：如果不是 200，先看原始文字是什麼
+        if (!response.ok) {
+            const errorText = await response.text(); // 改用 text() 抓原始錯誤
+            throw new Error(`伺服器回傳錯誤 (${response.status}): ${errorText}`);
         }
+
+        const result = await response.json();
+        alert('🎉 儲存成功！');
+
     } catch (err) {
-        alert('Error saving record: ' + err.message);
+        console.error("詳細錯誤細節：", err);
+        alert('儲存失敗：' + err.message);
     }
-    
-
-    
-
 }
 
 

@@ -17,10 +17,40 @@ function saveIndRecord() {
         date = formatted;
     }
 
-    alert(`
-        Your purchase: ${name} at ${date}
-        Amount: ${amount}
-        Recorded!`);
+    //SAVE DATA TO DB
+    const redordData = {
+        amount: amount,
+        name: name,
+        date, date
+    };
+
+    try {
+        const response = await fetch('/add-ind-record', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recordData)
+        });
+
+        // Check if the response is successful
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(`Record saved successfully
+                Purchase: ${name} 
+                Date: ${date}
+                Amount: ${amount}
+                `);
+        } else {
+            alert('Error saving record: ' + result.message);
+        }
+    } catch (err) {
+        alert('Error saving record: ' + err.message);
+    }
+    
+
+    
 
 }
 

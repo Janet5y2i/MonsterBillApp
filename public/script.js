@@ -3,7 +3,7 @@ const today = new Date();
 const formatted = new Intl.DateTimeFormat('en-CA')
     .format(today)
 
-function saveIndRecord() {
+async function saveIndRecord() {
     var amount = Number(document.getElementById("indMoney").value);
     var name = document.getElementById("indPurchaseName").value;
     var date = document.getElementById("indPurchaseDate").value;
@@ -18,10 +18,10 @@ function saveIndRecord() {
     }
 
     //SAVE DATA TO DB
-    const redordData = {
+    const recordData = {
         amount: amount,
         name: name,
-        date, date
+        date: date
     };
 
     try {

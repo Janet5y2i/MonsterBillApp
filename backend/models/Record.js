@@ -32,6 +32,16 @@ const Record = sequelize.define('Record', {
     isSettled: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+
+    payerId: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    
+    creatorId: {
+        type: DataTypes.UUID,
+        allowNull: false
     }
 });
 

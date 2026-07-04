@@ -26,12 +26,22 @@ const Record = sequelize.define('Record', {
         allowNull: false
     },
     type: {
-        type: DataTypes.ENUM('Income', 'Individual Expense', 'Shared Expense'),
+        type: DataTypes.ENUM('Income', 'Individual', 'Shared'),
         allowNull: false
     },
     isSettled: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+
+    payerId: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    
+    creatorId: {
+        type: DataTypes.UUID,
+        allowNull: false
     }
 });
 
